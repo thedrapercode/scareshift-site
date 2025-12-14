@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScareShift - Master the Art of Fear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blood-red: #8B0000;
+            --deep-purple: #1a0a1f;
+            --ghost-white: #f4f1ed;
+            --shadow-black: #0a0506;
+            --accent-gold: #d4af37;
+            --fog-gray: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background: var(--shadow-black);
+            color: var(--ghost-white);
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="%23d4af37" opacity="0.3"/><circle cx="12" cy="12" r="2" fill="%23d4af37"/></svg>'), auto;
+        }
+
+        /* Animated background fog effect */
+        .fog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(26, 10, 31, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(42, 42, 42, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: fogDrift 20s ease-in-out infinite;
+        }
+
+        @keyframes fogDrift {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.5;
+        }
+
+        .container {
+            position: relative;
+            z-index: 3;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 4rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(3rem, 12vw, 9rem);
+            color: var(--blood-red);
+            text-shadow: 
+                0 0 20px rgba(139, 0, 0, 0.8),
+                0 0 40px rgba(139, 0, 0, 0.6),
+                0 0 60px rgba(139, 0, 0, 0.4),
+                4px 4px 0px var(--shadow-black);
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            animation: flicker 4s ease-in-out infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            41% { opacity: 1; }
+            42% { opacity: 0.8; }
+            43% { opacity: 1; }
+            45% { opacity: 0.9; }
+            46% { opacity: 1; }
+        }
+
+        .tagline {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .hero-description {
+            max-width: 700px;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            color: rgba(244, 241, 237, 0.9);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+
+        .cta-button {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--shadow-black);
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #f4d03f 100%);
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            box-shadow: 
+                0 4px 20px rgba(212, 175, 55, 0.4),
+                0 0 40px rgba(212, 175, 55, 0.2);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards, float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 
+                0 8px 30px rgba(212, 175, 55, 0.6),
+                0 0 60px rgba(212, 175, 55, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, var(--shadow-black) 0%, var(--deep-purple) 50%, var(--shadow-black) 100%);
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--blood-red);
+            text-shadow: 0 0 30px rgba(139, 0, 0, 0.6);
+            letter-spacing: 0.1em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(26, 10, 31, 0.6);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            padding: 2.5rem;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blood-red), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--blood-red);
+            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.4);
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .feature-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.05em;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(244, 241, 237, 0.8);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            position: relative;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .stat-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--blood-red);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-description {
+            font-size: 0.9rem;
+            color: rgba(244, 241, 237, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Scenarios Section */
+        .scenarios {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--shadow-black) 0%, rgba(42, 42, 42, 0.3) 50%, var(--shadow-black) 100%);
+        }
+
+        .scenario-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .scenario-badge {
+            background: rgba(10, 5, 6, 0.8);
+            border: 2px solid var(--accent-gold);
+            padding: 2rem;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .difficulty-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--blood-red);
+            margin-bottom: 1rem;
+        }
+
+        .scenario-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(244, 241, 237, 0.8);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
+        }
+
+        .footer-text {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: rgba(244, 241, 237, 0.6);
+            letter-spacing: 0.1em;
+        }
+
+        .version {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-arrow {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .features-grid,
+            .stats-grid,
+            .scenario-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Custom selection */
+        ::selection {
+            background: var(--blood-red);
+            color: var(--ghost-white);
+        }
+    </style>
+</head>
+<body>
+    <div class="fog"></div>
+    <div class="grain"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="logo">ScareShift</h1>
+            <p class="tagline">Master the Art of Fear</p>
+            <p class="hero-description">
+                Step into the shadows as a professional haunter. Navigate the chaos of opening night, handle rowdy guests, and master the delicate art of terror. Every shift tests your skills. Every choice shapes your legend.
+            </p>
+            <button class="cta-button">Begin Your Shift</button>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">The Haunter's Path</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎭</span>
+                    <h3 class="feature-title">Craft Your Character</h3>
+                    <p class="feature-description">
+                        Create your unique haunter persona. Choose your specialty, develop your signature scares, and build a reputation that sends shivers through the night.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 class="feature-title">Navigate Real Scenarios</h3>
+                    <p class="feature-description">
+                        Face authentic haunt situations from opening night jitters to emergency protocols. Your choices matter - every decision impacts guests, your team, and your career.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📈</span>
+                    <h3 class="feature-title">Evolve Your Skills</h3>
+                    <p class="feature-description">
+                        Master five core stats through experience. Build your Fear craft, Presence, perfect your Timing, enhance Agility, and develop the Endurance for those brutal October nights.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🌙</span>
+                    <h3 class="feature-title">Work the Waves</h3>
+                    <p class="feature-description">
+                        Each shift brings three waves of escalating challenge. Start with eager first-timers, face the tough crowds, and handle the chaos when things go sideways.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🤝</span>
+                    <h3 class="feature-title">Team Dynamics</h3>
+                    <p class="feature-description">
+                        Coordinate with fellow haunters, support your crew during emergencies, and learn when to call for backup. Great scares are built on great teamwork.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🏆</span>
+                    <h3 class="feature-title">Rise Through Ranks</h3>
+                    <p class="feature-description">
+                        Earn XP, unlock achievements, and prove yourself worthy of the most challenging roles. From rookie to legend - your journey awaits.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title">Five Pillars of Terror</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">😱</div>
+                    <div class="stat-name">Fear</div>
+                    <p class="stat-description">Your ability to craft genuine scares and read guest reactions</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-name">Presence</div>
+                    <p class="stat-description">Command attention and control the atmosphere</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-name">Timing</div>
+                    <p class="stat-description">Perfect the moment - too early ruins it, too late wastes it</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">🏃</div>
+                    <div class="stat-name">Agility</div>
+                    <p class="stat-description">Navigate tight spaces and execute complex choreography</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">💪</div>
+                    <div class="stat-name">Endurance</div>
+                    <p class="stat-description">Survive the grueling pace of peak season nights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenarios Section -->
+    <section class="scenarios">
+        <div class="container">
+            <h2 class="section-title">What Awaits You</h2>
+            <div class="scenario-examples">
+                <div class="scenario-badge">
+                    <div class="difficulty-label">🟢 Standard Crowd</div>
+                    <h3 class="scenario-title">Opening Night Energy</h3>
+                    <p class="scenario-desc">
+                        The first group enters laughing and taking photos. Perfect energy. How do you set the tone for the entire night?
+                    </p>
+                </div>
+                
+                <div class="scenario-badge">
+                    <div class="difficulty-label">🟡 Tough Crowd</div>
+                    <h3 class="scenario-title">The Heckler</h3>
+                    <p class="scenario-desc">
+                        Someone's trying to ruin the experience for everyone. Your move determines if this derails the whole shift.
+                    </p>
+                </div>
+                
+                <div class="scenario-badge">
+                    <div class="difficulty-label">🟠 Hot Situation</div>
+                    <h3 class="scenario-title">Boundary Violation</h3>
+                    <p class="scenario-desc">
+                        A guest crosses the line. Protocol exists for a reason - but the situation is escalating fast.
+                    </p>
+                </div>
+                
+                <div class="scenario-badge">
+                    <div class="difficulty-label">🔴 All Hands</div>
+                    <h3 class="scenario-title">Medical Emergency</h3>
+                    <p class="scenario-desc">
+                        Someone's down. The show must stop, but panic can't spread. Every second counts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">The shadows are calling. Will you answer?</p>
+            <p class="version">ScareShift v1.3.3 - Haunter RPG System</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for the scroll indicator
+        document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
+            document.querySelector('.features').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Add hover glow effect to cards
+        document.querySelectorAll('.feature-card, .scenario-badge').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const fog = document.querySelector('.fog');
+            if (fog) {
+                fog.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // CTA Button interaction
+        document.querySelector('.cta-button')?.addEventListener('click', () => {
+            alert('ScareShift is coming soon! Prepare yourself for the ultimate haunter experience.');
+        });
+    </script>
+</body>
+</html>
