@@ -113,9 +113,19 @@
             color: var(--accent-gold);
             text-transform: uppercase;
             letter-spacing: 0.3em;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        .hero-subline {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1rem, 2.2vw, 1.4rem);
+            color: rgba(244, 241, 237, 0.8);
+            letter-spacing: 0.1em;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
         }
 
         @keyframes fadeIn {
@@ -136,8 +146,6 @@
             font-family: 'Cinzel', serif;
             font-size: 1.2rem;
             font-weight: 700;
-            color: var(--shadow-black);
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #f4d03f 100%);
             padding: 1.2rem 3rem;
             border: none;
             border-radius: 2px;
@@ -147,19 +155,18 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.2s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cta-primary {
+            color: var(--shadow-black);
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #f4d03f 100%);
             box-shadow: 
                 0 4px 20px rgba(212, 175, 55, 0.4),
                 0 0 40px rgba(212, 175, 55, 0.2);
-            opacity: 0;
-            animation: fadeIn 1s ease-out 1.5s forwards, float 3s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .cta-button:hover {
+        .cta-primary:hover {
             transform: scale(1.05) translateY(-2px);
             box-shadow: 
                 0 8px 30px rgba(212, 175, 55, 0.6),
@@ -186,6 +193,172 @@
             padding: 8rem 2rem;
             background: linear-gradient(180deg, var(--shadow-black) 0%, var(--deep-purple) 50%, var(--shadow-black) 100%);
             position: relative;
+        }
+
+        /* How You Play Section */
+        .how-to-play {
+            padding: 8rem 2rem;
+            background: var(--shadow-black);
+            position: relative;
+        }
+
+        .play-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .play-step {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .step-number {
+            font-family: 'Creepster', cursive;
+            font-size: 4rem;
+            color: var(--blood-red);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .step-arrow {
+            display: none;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            opacity: 0.5;
+        }
+
+        @media (min-width: 900px) {
+            .play-steps {
+                grid-template-columns: 1fr auto 1fr auto 1fr;
+                gap: 1rem;
+            }
+            
+            .step-arrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .step-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(244, 241, 237, 0.8);
+        }
+
+        /* Clarity Section */
+        .clarity-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--shadow-black) 0%, rgba(42, 42, 42, 0.2) 50%, var(--shadow-black) 100%);
+        }
+
+        /* Year-Round Callout */
+        .year-round-callout {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.15) 0%, rgba(26, 10, 31, 0.3) 50%, rgba(10, 5, 6, 0.4) 100%);
+            border-top: 2px solid var(--blood-red);
+            border-bottom: 2px solid var(--blood-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .year-round-callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .callout-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .callout-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .callout-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.8;
+            color: var(--ghost-white);
+            margin-bottom: 2rem;
+        }
+
+        .callout-subtext {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(244, 241, 237, 0.7);
+            font-style: italic;
+        }
+
+        .clarity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .clarity-column h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .clarity-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .clarity-list li {
+            padding: 0.8rem 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        }
+
+        .clarity-list li:last-child {
+            border-bottom: none;
+        }
+
+        .is-not {
+            color: rgba(244, 241, 237, 0.6);
+        }
+
+        .is-yes {
+            color: var(--ghost-white);
         }
 
         .section-title {
@@ -427,10 +600,13 @@
         <div class="container">
             <h1 class="logo">ScareShift</h1>
             <p class="tagline">Master the Art of Fear</p>
+            <p class="hero-subline">A Professional Haunter RPG Experience</p>
             <p class="hero-description">
-                Step into the shadows as a professional haunter. Navigate the chaos of opening night, handle rowdy guests, and master the delicate art of terror. Every shift tests your skills. Every choice shapes your legend.
+                You're not battling dragons. You're managing a panicked crowd on opening night. You're reading a heckler's energy before they ruin the show. You're making split-second calls when someone crosses the line. ScareShift puts you behind the screams—where real performance, safety, and the art of fear collide.
             </p>
-            <button class="cta-button">Begin Your Shift</button>
+            <div style="opacity: 0; animation: fadeIn 1s ease-out 1.5s forwards;">
+                <button class="cta-button cta-primary">Follow Development</button>
+            </div>
         </div>
         <div class="scroll-indicator">
             <div class="scroll-arrow">↓</div>
@@ -486,8 +662,85 @@
                     <span class="feature-icon">🏆</span>
                     <h3 class="feature-title">Rise Through Ranks</h3>
                     <p class="feature-description">
-                        Earn XP, unlock achievements, and prove yourself worthy of the most challenging roles. From rookie to legend... your journey awaits.
+                        Earn XP, unlock achievements, and prove yourself worthy of the most challenging roles. From rookie to legend - your journey awaits.
                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How You Play Section -->
+    <section class="how-to-play">
+        <div class="container">
+            <h2 class="section-title">How ScareShift Plays</h2>
+            <div class="play-steps">
+                <div class="play-step">
+                    <div class="step-number">01</div>
+                    <h3 class="step-title">Create Your Haunter</h3>
+                    <p class="step-description">
+                        Build a character based on how you scare—not fantasy tropes, but real performance traits and specialties.
+                    </p>
+                </div>
+                
+                <div class="step-arrow">→</div>
+                
+                <div class="play-step">
+                    <div class="step-number">02</div>
+                    <h3 class="step-title">Face Real Scenarios</h3>
+                    <p class="step-description">
+                        Navigate guest behavior, crowd flow, emergencies, and pressure using choice-driven gameplay.
+                    </p>
+                </div>
+                
+                <div class="step-arrow">→</div>
+                
+                <div class="play-step">
+                    <div class="step-number">03</div>
+                    <h3 class="step-title">Grow Your Legend</h3>
+                    <p class="step-description">
+                        Earn XP, unlock abilities, and refine your style across shifts, events, or full campaigns.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Year-Round Callout -->
+    <section class="year-round-callout">
+        <div class="callout-content">
+            <h2 class="callout-title">Be a Scare Actor All Year Round</h2>
+            <p class="callout-text">
+                October ends. The haunt shuts down. But the craft doesn't have to stop. ScareShift lets you step into character, face scenarios, and sharpen your skills during the off-season—keeping your edge year-round.
+            </p>
+            <p class="callout-subtext">
+                Whether you're a professional keeping sharp between seasons, a fan exploring what it takes, or a trainer looking for discussion scenarios—ScareShift meets you where you are. It's a game for everyone, but a tool for many.
+            </p>
+        </div>
+    </section>
+
+    <!-- What ScareShift Is Section -->
+    <section class="clarity-section">
+        <div class="container">
+            <h2 class="section-title">Built for the Haunt Industry</h2>
+            <div class="clarity-grid">
+                <div class="clarity-column">
+                    <h3>ScareShift Is NOT</h3>
+                    <ul class="clarity-list">
+                        <li class="is-not">❌ A jump-scare video game with monsters</li>
+                        <li class="is-not">❌ Fantasy role-play like D&D or Pathfinder</li>
+                        <li class="is-not">❌ A certified safety training program</li>
+                        <li class="is-not">❌ Generic horror entertainment</li>
+                    </ul>
+                </div>
+                
+                <div class="clarity-column">
+                    <h3>ScareShift IS</h3>
+                    <ul class="clarity-list">
+                        <li class="is-yes">✅ Based on real haunted house scenarios</li>
+                        <li class="is-yes">✅ A tool for actors to explore situations safely</li>
+                        <li class="is-yes">✅ Grounded in professional performance skills</li>
+                        <li class="is-yes">✅ Built with input from industry professionals</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -497,6 +750,9 @@
     <section class="stats">
         <div class="container">
             <h2 class="section-title">Five Pillars of Terror</h2>
+            <p style="text-align: center; font-size: 1.1rem; color: rgba(244, 241, 237, 0.7); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                These stats reflect real skills haunt actors develop on the job—not fantasy power levels.
+            </p>
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-icon">😱</div>
@@ -571,18 +827,87 @@
         </div>
     </section>
 
+    <!-- Who Will Love This Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Who Will Love ScareShift</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎭</span>
+                    <h3 class="feature-title">Scare Actors</h3>
+                    <p class="feature-description">
+                        Sharpen your timing, presence, and decision-making through play. Explore scenarios you might face and develop your instincts in a safe space.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🏢</span>
+                    <h3 class="feature-title">Haunt Owners & Trainers</h3>
+                    <p class="feature-description">
+                        Use scenarios as discussion tools, workshop exercises, or team-building activities. Perfect for pre-season preparation.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎃</span>
+                    <h3 class="feature-title">Halloween & Horror Fans</h3>
+                    <p class="feature-description">
+                        Step inside the world behind the screams and see how haunts really work. Experience the professional side of fear.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="clarity-section">
+        <div class="container">
+            <h2 class="section-title">Coming in 2026</h2>
+            <div style="max-width: 800px; margin: 3rem auto 0; text-align: center;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div>
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--accent-gold); margin-bottom: 0.5rem;">Q1 2026</h3>
+                        <p style="color: rgba(244, 241, 237, 0.8);">Initial Beta & ruleset launch</p>
+                    </div>
+                    <div>
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--accent-gold); margin-bottom: 0.5rem;">Q2 2026</h3>
+                        <p style="color: rgba(244, 241, 237, 0.8);">Scenario updates & refinements</p>
+                    </div>
+                    <div>
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--accent-gold); margin-bottom: 0.5rem;">Q3 2026</h3>
+                        <p style="color: rgba(244, 241, 237, 0.8);">Additional content & features</p>
+                    </div>
+                    <div>
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--accent-gold); margin-bottom: 0.5rem;">Q4 2026</h3>
+                        <p style="color: rgba(244, 241, 237, 0.8);">Expanded character abilities</p>
+                    </div>
+                </div>
+                <p style="margin-top: 3rem; font-size: 1.1rem; color: rgba(244, 241, 237, 0.7); font-style: italic;">
+                    Follow development updates to stay informed as we build toward the Q1 2026 Beta launch.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p class="footer-text">The shadows are calling. Will you answer?</p>
-            <p class="version">ScareShift v1.3.3 - Haunter RPG System</p>
+            <p class="footer-text">Are you ready for opening night?</p>
+            <p class="version">ScareShift v1.3.3</p>
+            <p style="font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--accent-gold); margin-top: 0.5rem; letter-spacing: 0.15em;">
+                A HAUNTER RPG SYSTEM
+            </p>
+            <p style="font-size: 0.8rem; color: rgba(244, 241, 237, 0.5); margin-top: 2rem;">
+                Built with input from haunt actors and industry professionals.<br>
+                Beta Launching Q1 2026 | Follow development updates
+            </p>
         </div>
     </footer>
 
     <script>
         // Smooth scroll for the scroll indicator
         document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
-            document.querySelector('.features').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.how-to-play').scrollIntoView({ behavior: 'smooth' });
         });
 
         // Add hover glow effect to cards
@@ -606,9 +931,39 @@
             }
         });
 
-        // CTA Button interaction
-        document.querySelector('.cta-button')?.addEventListener('click', () => {
-            alert('ScareShift is coming inn 2026! Prepare yourself for the ultimate haunter experience.');
+        // CTA Button - Scroll to roadmap
+        const ctaButton = document.querySelector('.cta-primary');
+        if (ctaButton) {
+            ctaButton.addEventListener('click', () => {
+                // Scroll to roadmap section
+                const roadmapSection = document.querySelector('.clarity-section:last-of-type');
+                if (roadmapSection) {
+                    roadmapSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        // Add scroll animations for sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards and scenario badges
+        document.querySelectorAll('.feature-card, .scenario-badge, .play-step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
